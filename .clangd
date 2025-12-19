@@ -12,19 +12,30 @@ CompileFlags:
     - -free
     - -fdata-sections
     - -ffunction-sections
-  # Add include paths for external libraries
+  # Add include paths for external libraries and ESP8266 core
   Add:
     - -I/Users/russellwhitaker/Documents/Py_Projects/openSprinkler_Firmware/external/OpenThings-Framework-Firmware-Library
     - -I/Users/russellwhitaker/Documents/Py_Projects/openSprinkler_Firmware/external/TinyWebsockets/src
+    - -I/Users/russellwhitaker/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include
+    - -I/Users/russellwhitaker/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include
+    - -I/Users/russellwhitaker/.platformio/packages/framework-arduinoespressif8266/cores/esp8266
+    - -I/Users/russellwhitaker/.platformio/packages/framework-arduinoespressif8266/variants/d1_mini
+    - -I/Users/russellwhitaker/.pio/libdeps/os3x_esp8266/ESP8266 and ESP32 OLED driver for SSD1306 displays/src
     - -DESP8266
     - -DARDUINO_ARCH_ESP8266
     - -DARDUINO=10813
+    - -DARDUINO_ESP8266_WEMOS_D1MINI
+    - -DF_CPU=160000000L
     - -DOS_HW_VERSION_BASE=30
     - -DOS_FW_VERSION=221
     - -DOS_FW_MINOR=4
+    - -D__ets__
+    - -DICACHE_FLASH
 
 Diagnostics:
-  # Suppress warnings about unknown attributes
+  # Suppress all warnings - code compiles fine with PlatformIO
+  Suppress: '*'
   UnusedIncludes: None
-  MissingIncludes: Relaxed
+  MissingIncludes: None
+
 
