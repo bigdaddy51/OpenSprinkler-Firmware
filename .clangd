@@ -1,0 +1,30 @@
+CompileFlags:
+  # Remove Xtensa-specific flags that clangd doesn't understand
+  Remove:
+    - -mlongcalls
+    - -mtext-section-literals
+    - -fno-rtti
+    - -falign-functions=4
+    - -U__STRICT_ANSI__
+    - -fipa-pta
+    - -Wno-frame-address
+    - -Werror=return-type
+    - -free
+    - -fdata-sections
+    - -ffunction-sections
+  # Add include paths for external libraries
+  Add:
+    - -I/Users/russellwhitaker/Documents/Py_Projects/openSprinkler_Firmware/external/OpenThings-Framework-Firmware-Library
+    - -I/Users/russellwhitaker/Documents/Py_Projects/openSprinkler_Firmware/external/TinyWebsockets/src
+    - -DESP8266
+    - -DARDUINO_ARCH_ESP8266
+    - -DARDUINO=10813
+    - -DOS_HW_VERSION_BASE=30
+    - -DOS_FW_VERSION=221
+    - -DOS_FW_MINOR=4
+
+Diagnostics:
+  # Suppress warnings about unknown attributes
+  UnusedIncludes: None
+  MissingIncludes: Relaxed
+
