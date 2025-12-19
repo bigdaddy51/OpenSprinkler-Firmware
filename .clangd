@@ -31,10 +31,14 @@ CompileFlags:
     - -DOS_FW_MINOR=4
     - -D__ets__
     - -DICACHE_FLASH
+    - -ferror-limit=0
+    - -Wno-everything
 
 Diagnostics:
-  # Suppress all warnings - code compiles fine with PlatformIO
+  # Completely disable diagnostics - code compiles fine with PlatformIO
   Suppress: '*'
+  ClangTidy:
+    Remove: '*'
   UnusedIncludes: None
   MissingIncludes: None
 
