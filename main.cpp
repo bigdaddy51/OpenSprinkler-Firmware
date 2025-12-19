@@ -111,6 +111,11 @@ int32_t flow_rt_period = -1;
 uint32_t reboot_timer = 0;
 unsigned char curr_alert_sid = 0;
 
+// API flow averaging variables
+float flowapi_sum = 0;
+uint32_t flowapi_count = 0;
+bool flowapi_zone_active = false;
+
 void flow_poll() {
 	ulong curr = millis();
 
@@ -126,13 +131,15 @@ void flow_poll() {
 		if(flowapi_success_lasttime > 0 && 
 		   (now - flowapi_success_lasttime) < 30 &&  // API data less than 30 seconds old
 		   flowapi_errCode == FLOW_API_SUCCESS) {
-			// Inject API rate into flow_last_gpm - that's it!
-			flow_last_gpm = flowapi_rate;
+			// Accumulate API readings for averaging across zone run
+			if(flowapi_zone_active) {
+				flowapi_sum += flowapi_rate;
+				flowapi_count++;
+			}
 			return;
 		}
 		// For pure API mode, don't fallback to hardware
 		if(use_api) {
-			flow_last_gpm = 0;
 			return;
 		}
 		// For fallback mode, continue to hardware reading below
@@ -1304,6 +1311,11 @@ void turn_on_station(unsigned char sid, ulong duration) {
 	//Added flow_gallons reset to station turn on.
 	flow_gallons=0;
 
+	// Reset API flow averaging
+	flowapi_sum = 0;
+	flowapi_count = 0;
+	flowapi_zone_active = true;
+
 	if (os.set_station_bit(sid, 1, duration)) {
 		notif.add(NOTIFY_STATION_ON, sid, duration);
 	}
@@ -1406,11 +1418,20 @@ void turn_off_station(unsigned char sid, time_os_t curr_time, unsigned char shif
 	os.set_station_bit(sid, 0);
 
 	// RAH implementation of flow sensor
-	if (flow_gallons > 1) {
-		if(flow_stop <= flow_begin) flow_last_gpm = 0;
-		else flow_last_gpm = (float) 60000 / (float)((flow_stop-flow_begin) / (flow_gallons - 1));
-	}// RAH calculate GPM, 1 pulse per gallon
-	else {flow_last_gpm = 0;}  // RAH if not one gallon (two pulses) measured then record 0 gpm
+	// Check if we're using API flow data
+	unsigned char flow_source = os.iopts[IOPT_FLOW_SOURCE];
+	if((flow_source == FLOW_SOURCE_API || flow_source == FLOW_SOURCE_FALLBACK) && flowapi_count > 0) {
+		// Calculate average flow rate from API readings during zone run
+		flow_last_gpm = flowapi_sum / flowapi_count;
+		flowapi_zone_active = false;
+	} else {
+		// Use hardware sensor calculation
+		if (flow_gallons > 1) {
+			if(flow_stop <= flow_begin) flow_last_gpm = 0;
+			else flow_last_gpm = (float) 60000 / (float)((flow_stop-flow_begin) / (flow_gallons - 1));
+		}// RAH calculate GPM, 1 pulse per gallon
+		else {flow_last_gpm = 0;}  // RAH if not one gallon (two pulses) measured then record 0 gpm
+	}
 
 	// check if the current time is past the scheduled start time,
 	// because we may be turning off a station that hasn't started yet
