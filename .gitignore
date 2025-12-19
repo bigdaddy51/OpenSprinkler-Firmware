@@ -4,7 +4,7 @@ wtopts.txt
 *.dat
 *.sh
 build-1284/*
-.vscode
+.vscode/*
 .pio
 *.o
 !build.sh
@@ -14,7 +14,7 @@ build-1284/*
 node_modules
 *.json
 !package.json
-!c_cpp_properties.json
+!.vscode/c_cpp_properties.json
 .DS_Store
 venvs/
 htmls.h

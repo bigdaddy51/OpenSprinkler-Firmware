@@ -1,0 +1,28 @@
+{
+  "configurations": [
+    {
+      "name": "macos-clang-arm64",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/external/OpenThings-Framework-Firmware-Library/src",
+        "${workspaceFolder}/external/TinyWebsockets/src",
+        "~/.platformio/packages/framework-arduinoespressif8266/cores/esp8266",
+        "~/.platformio/packages/framework-arduinoespressif8266/libraries/**",
+        "~/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include"
+      ],
+      "compilerPath": "/usr/bin/clang",
+      "cStandard": "${default}",
+      "cppStandard": "${default}",
+      "intelliSenseMode": "macos-clang-arm64",
+      "compilerArgs": [
+        ""
+      ],
+      "defines": [
+        "ESP8266",
+        "ARDUINO_ARCH_ESP8266",
+        "ARDUINO=10805"
+      ]
+    }
+  ],
+  "version": 4
+}
