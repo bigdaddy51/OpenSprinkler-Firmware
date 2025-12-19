@@ -1,30 +1,37 @@
 {
   "configurations": [
     {
-      "name": "macos-clang-arm64",
+      "name": "PlatformIO ESP8266",
       "includePath": [
-        "${workspaceFolder}/**",
-        "${workspaceFolder}/external/OpenThings-Framework-Firmware-Library",
-        "${workspaceFolder}/external/TinyWebsockets/tiny_websockets_lib/include",
-        "~/.platformio/packages/framework-arduinoespressif8266/cores/esp8266",
-        "~/.platformio/packages/framework-arduinoespressif8266/libraries/**",
-        "~/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include"
-      ],
-      "compilerPath": "/usr/bin/clang",
-      "cStandard": "${default}",
-      "cppStandard": "${default}",
-      "intelliSenseMode": "macos-clang-arm64",
-      "compilerArgs": [
-        ""
+        "${workspaceFolder}",
+        "${workspaceFolder}/.pio/libdeps/os3x_esp8266/OpenThings-Framework-Firmware-Library",
+        "${workspaceFolder}/.pio/libdeps/os3x_esp8266/WebSockets/src",
+        "${workspaceFolder}/.pio/libdeps/os3x_esp8266/PubSubClient/src",
+        "${workspaceFolder}/.pio/libdeps/os3x_esp8266/ESP8266 and ESP32 OLED driver for SSD1306 displays/src",
+        "/Users/russellwhitaker/.platformio/packages/framework-arduinoespressif8266/cores/esp8266",
+        "/Users/russellwhitaker/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include",
+        "/Users/russellwhitaker/.platformio/packages/framework-arduinoespressif8266/tools/sdk/lwip2/include",
+        "/Users/russellwhitaker/.platformio/packages/framework-arduinoespressif8266/variants/d1_mini",
+        "/Users/russellwhitaker/.platformio/packages/framework-arduinoespressif8266/libraries/**",
+        "/Users/russellwhitaker/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/10.3.0",
+        "/Users/russellwhitaker/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/10.3.0/xtensa-lx106-elf",
+        "/Users/russellwhitaker/.platformio/packages/toolchain-xtensa/lib/gcc/xtensa-lx106-elf/10.3.0/include",
+        "/Users/russellwhitaker/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include"
       ],
       "defines": [
+        "PLATFORMIO=60118",
         "ESP8266",
         "ARDUINO_ARCH_ESP8266",
+        "ARDUINO_ESP8266_WEMOS_D1MINI",
+        "F_CPU=160000000L",
         "ARDUINO=10805",
-        "OS_HW_VERSION_BASE=30",
-        "OS_FW_VERSION=221",
-        "OS_FW_MINOR=4"
-      ]
+        "LWIP_OPEN_SRC",
+        "TCP_MSS=536"
+      ],
+      "compilerPath": "/Users/russellwhitaker/.platformio/packages/toolchain-xtensa/bin/xtensa-lx106-elf-g++",
+      "cStandard": "gnu17",
+      "cppStandard": "gnu++17",
+      "intelliSenseMode": "gcc-x64"
     }
   ],
   "version": 4
