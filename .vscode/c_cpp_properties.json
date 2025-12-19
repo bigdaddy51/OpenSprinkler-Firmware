@@ -5,7 +5,7 @@
       "includePath": [
         "${workspaceFolder}/**",
         "${workspaceFolder}/external/OpenThings-Framework-Firmware-Library/src",
-        "${workspaceFolder}/external/TinyWebsockets/src",
+        "${workspaceFolder}/external/TinyWebsockets/tiny_websockets_lib/include",
         "~/.platformio/packages/framework-arduinoespressif8266/cores/esp8266",
         "~/.platformio/packages/framework-arduinoespressif8266/libraries/**",
         "~/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include"
@@ -20,7 +20,10 @@
       "defines": [
         "ESP8266",
         "ARDUINO_ARCH_ESP8266",
-        "ARDUINO=10805"
+        "ARDUINO=10805",
+        "OS_HW_VERSION_BASE=30",
+        "OS_FW_VERSION=221",
+        "OS_FW_MINOR=4"
       ]
     }
   ],
